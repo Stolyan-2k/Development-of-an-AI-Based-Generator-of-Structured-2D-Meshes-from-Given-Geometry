@@ -1,0 +1,7 @@
+{
+  "corners": [[0,0], [4,0], [4,1], [0,1]],
+  "controls": {"bottom": [2,0.65], "top": [2,1.25]},
+  "cells": [64,24],
+  "grading": [1,3],
+  "patches": {"left":"inlet", "right":"outlet", "top":"wall", "bottom":"wall"}
+}
