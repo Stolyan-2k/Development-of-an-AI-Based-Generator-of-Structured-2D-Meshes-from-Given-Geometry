@@ -1,0 +1,8 @@
+{
+  "shape": "ellipse_ring",
+  "center": [0, 0],
+  "inner_center": [0.55, 0.2],
+  "inner_axes": [1.0, 0.5],
+  "outer_axes": [2.0, 1.3],
+  "cells": [120, 24]
+}

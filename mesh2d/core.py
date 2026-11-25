@@ -38,6 +38,12 @@ def quality(grid):
 
 
 def generate(case, method='ai'):
+    if isinstance(case, dict) and case.get('shape') == 'ellipse_ring':
+        if method != 'radial':
+            raise ValueError('Ellipse ring uses --method radial')
+        from .ellipses import ellipse_ring
+        grid = ellipse_ring(case)
+        return grid, {'bottom': 'inner_wall', 'top': 'outer_wall'}, quality(grid)
     if isinstance(case, dict) and 'shape' in case:
         if method != 'radial':
             raise ValueError('Circle and star use --method radial')

@@ -19,6 +19,8 @@ def plot_mesh(grid, patches, report, output=None, show=False):
     colors = dict(zip(names, ['#db652b', '#188d83', '#7755bb', '#cf4368']))
     seen = set()
     for side, coordinates in boundaries.items():
+        if side not in patches:
+            continue
         name = patches[side]
         axes.plot(coordinates[:, 0], coordinates[:, 1], color=colors[name],
                   linewidth=2.3, label=name if name not in seen else '_nolegend_')

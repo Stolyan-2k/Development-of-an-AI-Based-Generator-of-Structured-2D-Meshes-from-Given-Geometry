@@ -5,15 +5,22 @@ import numpy as np
 def topology(grid, patches):
     rows, columns = grid.shape[:2]
     nodes = np.arange(rows*columns).reshape(rows,columns)
+    if 'left' not in patches and 'right' not in patches:
+        nodes = np.column_stack([np.arange(rows*(columns-1)).reshape(rows,columns-1),
+                                 np.arange(rows)*(columns-1)])
     quads = np.stack([nodes[:-1,:-1],nodes[:-1,1:],nodes[1:,1:],nodes[1:,:-1]],axis=-1).reshape(-1,4)
     markers = defaultdict(list)
     for side,line in [('bottom',nodes[0]),('right',nodes[:,-1]),('top',nodes[-1,::-1]),('left',nodes[::-1,0])]:
+        if side not in patches:
+            continue
         markers[patches[side]].extend(zip(line[:-1],line[1:]))
     return quads,markers
 
 
 def write_mesh(path,grid,patches,fmt):
     coords = grid.reshape(-1,2)
+    if fmt != 'vtk' and 'left' not in patches and 'right' not in patches:
+        coords = grid[:, :-1].reshape(-1, 2)
     total = len(coords)
     quads,markers = topology(grid,patches)
     def labels(items):
